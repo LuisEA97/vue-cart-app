@@ -9,12 +9,13 @@ export default createStore({
     [ADD_TO_CART](state, payload) {
       state.shoppingCart = [...state.shoppingCart, payload];
     },
-    [EDIT_ITEM](state, id, payload) {
+    [EDIT_ITEM](state, payload) {
+      const info = payload;
       state.shoppingCart = state.shoppingCart.map((item) => {
-        if (item.id === id) {
-          item = payload;
+        console.log("payload", info);
+        if (item.id === info.id) {
+          return info.data;
         }
-        console.log(item);
         return item;
       });
     },

@@ -6,7 +6,11 @@
     </div>
     <div class="card-details">
       <div class="qty">
-        <button :disabled="item.qty === 1" class="qty-button">
+        <button
+          @click="decreaseQty"
+          :disabled="item.qty === 1"
+          class="qty-button"
+        >
           <i class="fas fa-minus"></i>
         </button>
         <span class="qty-info">{{ item.qty }}</span>
@@ -50,15 +54,24 @@ export default {
       edit: "editItem",
     }),
     increaseQty: function () {
-      const data = {
-        ...this.item,
-        qty: this.item.qty + 1,
+      const payload = {
+        id: this.item.id,
+        data: {
+          ...this.item,
+          qty: this.item.qty + 1,
+        },
       };
-      console.log(data);
-      this.edit(this.item.id, data);
+      this.edit(payload);
     },
     decreaseQty: function () {
-      /* this.item.qty -= 1; */
+      const payload = {
+        id: this.item.id,
+        data: {
+          ...this.item,
+          qty: this.item.qty - 1,
+        },
+      };
+      this.edit(payload);
     },
   },
 };
