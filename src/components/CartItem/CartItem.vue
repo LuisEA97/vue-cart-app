@@ -105,6 +105,7 @@ export default {
     }),
     editar: function () {
       this.editMode = true;
+      this.editObject = { ...this.item };
     },
     editInfo: function () {
       const payload = {
@@ -113,10 +114,10 @@ export default {
       };
       this.edit(payload);
       this.editMode = false;
-      this.editObject = this.item;
+      this.editObject = { ...this.item };
     },
     cancelEdit: function () {
-      this.editObject = this.item;
+      this.editObject = { ...this.item };
       this.editMode = false;
     },
     increaseQty: function () {
