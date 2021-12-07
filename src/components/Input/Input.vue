@@ -11,6 +11,7 @@
         );
       "
       class="input"
+      :step="type === 'number' && allowDecimal ? '0.01' : '1'"
       :value="modelValue"
       :type="type"
       :id="name"
@@ -42,6 +43,11 @@ export default {
     placeholder: {
       type: String,
       required: true,
+    },
+    allowDecimal: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
   },
   methods: {

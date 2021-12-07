@@ -1,10 +1,53 @@
 <template>
   <div class="item-card">
+    <button class="close" @click="deleteFromCart">
+      <i class="fas fa-times"></i>
+    </button>
     <div class="card-title">
-      <span class="title">{{ item.name }}</span>
-      <span class="price">${{ `${item.price.toFixed(2)} MXN` }}</span>
+      <span v-if="!editMode" class="title"
+        >{{ item.name }}
+        <button @click="editar" class="edit-button edit-on-sm">
+          <span>Editar</span>
+        </button>
+      </span>
+      <div v-if="editMode" class="input-title">
+        <label for="name">Nombre:</label>
+        <input type="text" name="name" id="name" v-model="editObject.name" />
+      </div>
+      <div class="price-holder">
+        <span v-if="!editMode" class="price"
+          >${{ `${item.price.toFixed(2)} MXN` }}</span
+        >
+        <button
+          v-if="!editMode"
+          @click="editar"
+          class="edit-button edit-on-mobile"
+        >
+          <span>Editar</span>
+        </button>
+      </div>
+      <div v-if="editMode" class="input-title">
+        <label for="price">Precio:</label>
+        <input
+          class="input-price"
+          type="number"
+          step="0.5"
+          name="price"
+          id="price"
+          v-model="editObject.price"
+        />
+        <span>MXN</span>
+      </div>
     </div>
-    <div class="card-details">
+    <div v-if="editMode" class="action-buttons">
+      <button @click="editInfo" class="button save">
+        <span>Guardar</span>
+      </button>
+      <button @click="cancelEdit" class="button cancel">
+        <span>Cancelar</span>
+      </button>
+    </div>
+    <div v-if="!editMode" class="card-details">
       <div class="qty">
         <button
           @click="decreaseQty"
@@ -49,10 +92,33 @@ export default {
       },
     },
   },
+  data() {
+    return {
+      editMode: false,
+      editObject: { ...this.item },
+    };
+  },
   methods: {
     ...mapActions({
       edit: "editItem",
+      deleteItem: "removeItem",
     }),
+    editar: function () {
+      this.editMode = true;
+    },
+    editInfo: function () {
+      const payload = {
+        id: this.item.id,
+        data: this.editObject,
+      };
+      this.edit(payload);
+      this.editMode = false;
+      this.editObject = this.item;
+    },
+    cancelEdit: function () {
+      this.editObject = this.item;
+      this.editMode = false;
+    },
     increaseQty: function () {
       const payload = {
         id: this.item.id,
@@ -73,21 +139,124 @@ export default {
       };
       this.edit(payload);
     },
+    deleteFromCart: function () {
+      this.deleteItem(this.item.id);
+    },
   },
 };
 </script>
 
 <style scoped>
 .item-card {
+  position: relative;
+  background-color: #f6faff;
   border-bottom: solid 1px #9ca3af;
   display: flex;
   width: -webkit-fill-available;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem 1.5rem;
+  padding: 1rem 2rem;
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 300ms;
+}
+.input-title {
+  display: inline-flex;
+  flex-direction: row;
+}
+.input-title span {
+  font-weight: 600;
+}
+input {
+  width: 8rem;
+  align-self: center;
+  background-color: transparent;
+  outline: 0;
+  border: 0;
+  border-bottom: 3px solid #0c4a6e;
+  font-size: 1.12rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+input:focus {
+  border-bottom: 3px solid #d97706;
+}
+
+label {
+  align-self: center;
+  margin-right: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+.input-price {
+  width: 6rem;
+}
+.price-holder {
+  display: flex;
+  flex-direction: row;
+}
+.edit-on-sm {
+  display: none;
+}
+.edit-on-mobile {
+  display: inline-block;
+}
+.edit-button {
+  font-size: 0.9rem;
+  align-self: center;
+  margin-left: 1rem;
+  border-radius: 9999px;
+  background-color: #e0f2fe;
+  font-weight: 600;
+  color: #0c4a6e;
+  padding: 0.2rem 1rem;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+.edit-button:hover {
+  background-color: #0c4a6e;
+  color: white;
+}
+.button {
+  display: inline-flex;
+  padding: 0.125rem 1rem;
+  border-radius: 9999px;
+  font-weight: 500;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+@media only screen and (min-width: 640px) {
+  input {
+    width: 15rem;
+  }
+  .edit-on-sm {
+    display: inline-block;
+  }
+  .edit-on-mobile {
+    display: none;
+  }
+}
+.save {
+  background-color: #065f46;
+  color: white;
+}
+.save:hover {
+  background-color: #064e3b;
+}
+.cancel {
+  margin-top: 0.2rem;
+  background-color: #b91c1c;
+  color: white;
+}
+.cancel:hover {
+  background-color: #991b1b;
+}
+.close {
+  position: absolute;
+  top: 5px;
+  right: 3px;
 }
 .item-card:hover {
   background-color: #f3f4f6;
@@ -102,6 +271,7 @@ export default {
   font-size: 2rem;
   color: #1f2937;
   font-weight: 600;
+  display: inline-flex;
 }
 .price {
   font-size: 1rem;
@@ -109,7 +279,8 @@ export default {
   margin-top: 0.2rem;
   color: #1d4ed8;
 }
-.card-details {
+.card-details,
+.action-buttons {
   margin-left: 1rem;
   display: flex;
   flex-direction: column;
@@ -118,6 +289,7 @@ export default {
 }
 .qty-info {
   color: #6b7280;
+  font-weight: 600;
 }
 .qty-button {
   display: inline-flex;
@@ -137,7 +309,7 @@ export default {
   color: white;
 }
 .qty-button:disabled {
-  opacity: 50%;
+  opacity: 40%;
   cursor: not-allowed;
 }
 .qty-button:disabled:hover {

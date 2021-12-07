@@ -1,23 +1,24 @@
 <template>
   <div class="home">
     <CreateItem />
-    <div class="cart" v-for="item in cart" :key="item.id">
-      <CartItem :item="item" />
+    <div v-if="cart.length" class="notify">
+      <i class="fas fa-info-circle"></i>
+      <span>{{ cart.length }} artículo(s) en tu carrito</span>
+      <router-link to="/shopping-cart" exact class="link" active-class="active"
+        >Ver carrito</router-link
+      >
     </div>
   </div>
 </template>
 
 <script>
-CreateItem;
 import { mapGetters } from "vuex";
-import CartItem from "../components/CartItem/CartItem.vue";
 import CreateItem from "../components/CreateItem/CreateItem.vue";
 // @ is an alias to /src
 
 export default {
   name: "Home",
   components: {
-    CartItem,
     CreateItem,
   },
   data() {
@@ -40,6 +41,25 @@ export default {
 </script>
 
 <style scoped>
+.notify {
+  background-color: #eef2ff;
+  color: #312e81;
+  padding: 0.5rem 1.5rem;
+  font-weight: 600;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 2px 8px 0px rgba(50, 50, 50, 0.3);
+  -moz-box-shadow: 0px 2px 8px 0px rgba(50, 50, 50, 0.3);
+  box-shadow: 0px 2px 8px 0px rgba(50, 50, 50, 0.3);
+}
+.notify > i {
+  margin-right: 0.5rem;
+}
+.link {
+  margin-left: 0.5rem;
+  text-decoration: none;
+  color: #312e81;
+  border-bottom: 2px solid #312e81;
+}
 .home {
   display: flex;
   flex-direction: column;
@@ -48,9 +68,7 @@ export default {
   height: 100vh;
   overflow-y: auto;
 }
-.cart {
-  width: 100%;
-}
+
 @media only screen and (min-width: 768px) {
   .home {
     padding: 0 2rem;

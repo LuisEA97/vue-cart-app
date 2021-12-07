@@ -1,5 +1,5 @@
 import { createStore } from "vuex";
-import { ADD_TO_CART, EDIT_ITEM } from "./mutation-types";
+import { ADD_TO_CART, EDIT_ITEM, REMOVE_ITEM } from "./mutation-types";
 
 export default createStore({
   state: {
@@ -19,6 +19,11 @@ export default createStore({
         return item;
       });
     },
+    [REMOVE_ITEM](state, payload) {
+      state.shoppingCart = state.shoppingCart.filter(
+        (item) => item.id !== payload
+      );
+    },
   },
   actions: {
     addToCart({ commit }, item) {
@@ -26,6 +31,9 @@ export default createStore({
     },
     editItem({ commit }, id, data) {
       commit(EDIT_ITEM, id, data);
+    },
+    removeItem({ commit }, id) {
+      commit(REMOVE_ITEM, id);
     },
   },
   getters: {

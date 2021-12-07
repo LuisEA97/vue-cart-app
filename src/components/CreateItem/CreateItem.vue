@@ -28,6 +28,7 @@
             type="number"
             label="Precio:"
             placeholder="Precio"
+            :allowDecimal="true"
           />
         </div>
       </div>
