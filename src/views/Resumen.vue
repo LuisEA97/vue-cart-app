@@ -1,7 +1,7 @@
 <template lang="">
   <div class="resumen">
     <EmptyCart v-if="!cart.length" />
-    <div class="resumen-table">
+    <div v-if="cart.length" class="resumen-table">
       <div class="resumen-item product-heade">
         <span class="item-name">Producto</span>
         <div class="product-info">
