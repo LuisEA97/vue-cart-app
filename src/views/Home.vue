@@ -3,9 +3,9 @@
     <CreateItem />
     <div v-if="cart.length" class="notify">
       <i class="fas fa-info-circle"></i>
-      <span>{{ cart.length }} artículo(s) en tu carrito</span>
+      <span>{{ cart.length }} items in your cart</span>
       <router-link to="/shopping-cart" exact class="link" active-class="active"
-        >Ver carrito</router-link
+        >View cart</router-link
       >
     </div>
   </div>
@@ -20,17 +20,6 @@ export default {
   name: "Home",
   components: {
     CreateItem,
-  },
-  data() {
-    return {
-      doritos: {
-        name: "Doritos nacho",
-        price: 15.0,
-        currency: "MXN",
-        stock: 10,
-        qty: 1,
-      },
-    };
   },
   computed: {
     ...mapGetters({

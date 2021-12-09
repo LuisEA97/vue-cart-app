@@ -3,10 +3,10 @@
     <EmptyCart v-if="!cart.length" />
     <div v-if="cart.length" class="resumen-table">
       <div class="resumen-item product-heade">
-        <span class="item-name">Producto</span>
+        <span class="item-name">Product</span>
         <div class="product-info">
-          <span class="item-name item-qty">Cantidad</span>
-          <span class="item-name item-price">Precio</span>
+          <span class="item-name item-qty">Quantity</span>
+          <span class="item-name item-price">Price</span>
         </div>
       </div>
       <div class="resumen-item" v-for="item in cart" :key="item.id">

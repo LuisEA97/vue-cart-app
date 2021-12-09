@@ -1,14 +1,14 @@
 <template>
   <form @submit="createProduct" class="form">
-    <h1 class="title">Agregar artículo al carrito</h1>
+    <h1 class="title">Add a product to your cart</h1>
     <div class="fields-holder">
       <div class="product-name">
         <Input
           v-model="article.name"
           type="text"
           name="name"
-          label="Producto:"
-          placeholder="Nombre del producto"
+          label="Product name:"
+          placeholder="Product name"
         />
       </div>
       <div class="price-qty">
@@ -17,8 +17,8 @@
             name="cantidad"
             v-model="article.qty"
             type="number"
-            label="Cantidad:"
-            placeholder="Cantidad"
+            label="Quantity:"
+            placeholder="Quantity"
           />
         </div>
         <div class="input">
@@ -26,8 +26,8 @@
             name="precio"
             v-model="article.price"
             type="number"
-            label="Precio:"
-            placeholder="Precio"
+            label="Unit price:"
+            placeholder="Unit price"
             :allowDecimal="true"
           />
         </div>
@@ -35,7 +35,7 @@
     </div>
     <div class="submit-holder">
       <button :disabled="disableSubmit" type="submit" class="submit">
-        <span>Agregar al carrito</span>
+        <span>Add to cart</span>
       </button>
     </div>
   </form>

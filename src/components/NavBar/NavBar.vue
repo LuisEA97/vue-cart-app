@@ -1,7 +1,7 @@
 <template>
   <div class="navbar">
     <router-link to="/" exact class="element" active-class="active"
-      >Crear artículo</router-link
+      >Add items</router-link
     >
     <div class="cart-items">
       <router-link
@@ -9,10 +9,10 @@
         exact
         class="element"
         active-class="active"
-        >Ver carrito</router-link
+        >View cart</router-link
       >
       <router-link to="/resumen" exact class="element" active-class="active"
-        >Resumen</router-link
+        >Resume</router-link
       >
     </div>
   </div>

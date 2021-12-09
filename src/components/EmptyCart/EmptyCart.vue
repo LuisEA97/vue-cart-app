@@ -1,7 +1,7 @@
 <template>
   <div class="empty-card">
     <i class="fas fa-cart-plus"></i>
-    <span>No hay artículos en el carrito</span>
+    <span>There's nothing here</span>
   </div>
 </template>
 <script>

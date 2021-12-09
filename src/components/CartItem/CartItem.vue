@@ -7,11 +7,11 @@
       <span v-if="!editMode" class="title"
         >{{ item.name }}
         <button @click="editar" class="edit-button edit-on-sm">
-          <span>Editar</span>
+          <span>Edit</span>
         </button>
       </span>
       <div v-if="editMode" class="input-title">
-        <label for="name">Nombre:</label>
+        <label for="name">Name:</label>
         <input type="text" name="name" id="name" v-model="editObject.name" />
       </div>
       <div class="price-holder">
@@ -23,11 +23,11 @@
           @click="editar"
           class="edit-button edit-on-mobile"
         >
-          <span>Editar</span>
+          <span>Edit</span>
         </button>
       </div>
       <div v-if="editMode" class="input-title">
-        <label for="price">Precio:</label>
+        <label for="price">Price:</label>
         <input
           class="input-price"
           type="number"
@@ -41,10 +41,10 @@
     </div>
     <div v-if="editMode" class="action-buttons">
       <button @click="editInfo" class="button save">
-        <span>Guardar</span>
+        <span>Save</span>
       </button>
       <button @click="cancelEdit" class="button cancel">
-        <span>Cancelar</span>
+        <span>Cancel</span>
       </button>
     </div>
     <div v-if="!editMode" class="card-details">
@@ -84,9 +84,9 @@ export default {
       type: Object,
       default: function () {
         return {
-          name: "Agrega un producto",
+          name: "Product name here",
           price: 0,
-          currency: "-",
+          currency: "...",
           qty: 0,
         };
       },
